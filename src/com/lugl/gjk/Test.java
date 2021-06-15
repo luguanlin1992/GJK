@@ -17,14 +17,13 @@ public class Test {
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         TestPanel jPanel = new TestPanel();
         jFrame.setContentPane(jPanel);
-        JLabel jLabel = new JLabel(jPanel.collisionDetected?"collision":"no collision");
+        JLabel jLabel = new JLabel(jPanel.collisionDetected ? "collision" : "no collision");
         jFrame.add(jLabel);
         jFrame.setVisible(true);
     }
 }
 
 class TestPanel extends JPanel {
-
     public TestPanel() {
         Random random = new Random();
         for (int i = 0; i < 3; i++) {
@@ -41,26 +40,22 @@ class TestPanel extends JPanel {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-
         if (list1.size() > 1 && list2.size() > 1) {
             Graphics2D graphics2D = (Graphics2D) g;
-            Point start = list1.get(0);
-            Point end;
-            for (int i = 1; i < list1.size(); i++) {
-                end = list1.get(i);
-                graphics2D.drawLine((int) start.x, (int) start.y, (int) end.x, (int) end.y);
-                start = end;
-            }
-            end = list1.get(0);
-            graphics2D.drawLine((int) start.x, (int) start.y, (int) end.x, (int) end.y);
-            start = list2.get(0);
-            for (int i = 1; i < list2.size(); i++) {
-                end = list2.get(i);
-                graphics2D.drawLine((int) start.x, (int) start.y, (int) end.x, (int) end.y);
-                start = end;
-            }
-            end = list2.get(0);
-            graphics2D.drawLine((int) start.x, (int) start.y, (int) end.x, (int) end.y);
+            drawShape(list1, graphics2D);
+            drawShape(list2, graphics2D);
         }
+    }
+
+    private void drawShape(List<Point> list, Graphics2D graphics2D) {
+        Point start = list.get(0);
+        Point end;
+        for (int i = 1; i < list.size(); i++) {
+            end = list.get(i);
+            graphics2D.drawLine((int) start.x, (int) start.y, (int) end.x, (int) end.y);
+            start = end;
+        }
+        end = list.get(0);
+        graphics2D.drawLine((int) start.x, (int) start.y, (int) end.x, (int) end.y);
     }
 }

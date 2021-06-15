@@ -69,33 +69,23 @@ public class GJK {
         int index = 0;
         Point a, b, c, d, ao, ab, ac, abperp, acperp;
         Point[] simplex = new Point[3];
-
         Point position1 = averagePoint(vecList1);
         Point position2 = averagePoint(vecList2);
-
         d = subtract(position1, position2);
-
         if (d.x == 0f && d.y == 0f) {
             d.x = 1f;
         }
-
         a = simplex[0] = support(vecList1, vecList2, d);
-
         if (dotProduct(a, d) <= 0) {
             return false;
         }
-
         d = negate(a);
-
         while (true) {
             a = simplex[++index] = support(vecList1, vecList2, d);
-
             if (dotProduct(a, d) <= 0) {
                 return false;
             }
-
             ao = negate(a);
-
             if (index < 2) {
                 b = simplex[0];
                 ab = subtract(b, a);
@@ -105,14 +95,11 @@ public class GJK {
                 }
                 continue;
             }
-
             b = simplex[1];
             c = simplex[0];
             ab = subtract(b, a);
             ac = subtract(c, a);
-
             acperp = tripleProduct(ab, ac, ac);
-
             if (dotProduct(acperp, ao) > 0) {
                 d = acperp;
             } else {
